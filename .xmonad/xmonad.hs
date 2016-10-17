@@ -8,6 +8,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
@@ -16,7 +17,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "gnome-terminal"
+myTerminal      = "urxvt"
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
@@ -86,6 +87,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_comma  ), sendMessage (IncMasterN 1))
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period ), sendMessage (IncMasterN (-1)))
+    , ((0                 , xK_Print  ), spawn "scrot -q 1 $HOME/pictures/screenshots/%Y-%m-%d-%H:%M:%S.png")
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
@@ -203,7 +205,7 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = return() --setWMName "LG3D"
 ------------------------------------------------------------------------
 -- tabbed
 --
@@ -214,7 +216,7 @@ myTabConfig = defaultTheme {
         inactiveBorderColor = "#444444",
         activeTextColor     = "#c0c0c0",
         inactiveTextColor   = "#c0c0c0",
-        fontName            = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+        fontName            = "-misc-fixed-*-*-*-*-16-*-*-*-*-*-*-*"
     }
 ------------------------------------------------------------------------
 -- statusbar
@@ -233,7 +235,7 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 -- xp
 --
 myXPConfig = defaultXPConfig {
-        font              = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*",
+        font              = "-misc-fixed-*-*-*-*-16-*-*-*-*-*-*-*",
         bgColor           = "#444444",
         fgColor           = "#c0c0c0",
         fgHLight          = "#4169e1",
